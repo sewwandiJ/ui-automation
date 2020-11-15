@@ -41,7 +41,6 @@ public class TestUtils {
         HashSet<String> l2Categories = new HashSet<String>();
         HashMap<String, HashSet<String>> firstItr = new HashMap<String, HashSet<String>>();
         HashMap<String, HashSet<String>> secondItr = new HashMap<String, HashSet<String>>();
-        HashMap<String, HashSet<String>> finalSet = new HashMap<String, HashSet<String>>();
         for (Object[] excelDatum : excelData) {
             String l1Category = (String) excelDatum[0];
             String l2Category = (String) excelDatum[1];

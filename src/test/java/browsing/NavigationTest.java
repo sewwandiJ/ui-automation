@@ -1,14 +1,14 @@
 package browsing;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pages.ProductListPage;
+import pages.SiteNavigationMenu;
 import utils.TestUtils;
 
 import java.nio.file.Paths;
@@ -24,7 +24,7 @@ public class NavigationTest {
     Object[][] excelData;
 
     @BeforeClass
-    public void setUp() {
+    public void beforeClass() {
         System.setProperty("webdriver.chrome.driver", Paths.get(CHROME_DRIVER).toString());
         excelData = TestUtils.getProductBrowsingTestData();
     }
@@ -44,25 +44,27 @@ public class NavigationTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.navigate().to(URL);
-        WebElement l1 = driver.findElement(By.linkText(level1));
-        Actions a = new Actions(driver);
-        hover(l1, a);
 
-        WebElement l2 = driver.findElement(By.linkText(level2));
+        SiteNavigationMenu siteNavigationMenu = new SiteNavigationMenu(driver);
+        WebElement l1 = siteNavigationMenu.getCategoryElementByText(level1);
+        siteNavigationMenu.hoverOverCategory(l1);
+
+        WebElement l2 = siteNavigationMenu.getCategoryElementByText(level2);
         if (level3 == null) {
-            click(a, l2);
+            siteNavigationMenu.clickOnCategory(l2);
         } else {
-            hover(l2, a);
-            WebElement l3 = driver.findElement(By.linkText(level3));
-            click(a, l3);
+            siteNavigationMenu.hoverOverCategory(l2);
+            WebElement l3 = siteNavigationMenu.getCategoryElementByText(level3);
+            siteNavigationMenu.clickOnCategory(l3);
         }
 
-        String actualHeader = driver.findElement(By.tagName("h1")).getText();
+        ProductListPage productListPage = new ProductListPage(driver);
+
+        String actualHeader = productListPage.getHeader();
         Assert.assertEquals(actualHeader, expectedHeader, "Page header doesn't match");
 
         productIds.forEach(productId -> {
-                    String productIdCss = "div[data-item-id='" + productId + "']";
-                    int productOccurrences = driver.findElements(By.cssSelector(productIdCss)).size();
+                    int productOccurrences = productListPage.getProductsByProductId(productId).size();
                     Assert.assertEquals(productOccurrences, 1, "Product found : " + productId);
                 }
         );
@@ -77,28 +79,23 @@ public class NavigationTest {
         WebDriver driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.navigate().to(URL);
-        WebElement l1 = driver.findElement(By.linkText(navigationSteps.get(0)));
-        Actions a = new Actions(driver);
-        hover(l1, a);
+
+        SiteNavigationMenu siteNavigationMenu = new SiteNavigationMenu(driver);
+        WebElement l1 = siteNavigationMenu.getCategoryElementByText(navigationSteps.get(0));
+        siteNavigationMenu.hoverOverCategory(l1);
 
         if (navigationSteps.size() == 2) {
-            WebElement l2 = driver.findElement(By.linkText(navigationSteps.get(1)));
-            hover(l2, a);
+            WebElement l2 = siteNavigationMenu.getCategoryElementByText(navigationSteps.get(1));
+            siteNavigationMenu.hoverOverCategory(l2);
         }
 
         for (String expectedCategory : expectedCategories) {
-            int categoryOccurrences = driver.findElements(By.linkText(expectedCategory)).size();
+            int categoryOccurrences = siteNavigationMenu.getCategoryElementsByText(expectedCategory).size();
             Assert.assertEquals(categoryOccurrences, 1, "Category found : " + expectedCategory);
         }
 
         driver.close();
     }
 
-    private void click(Actions a, WebElement l2) {
-        a.moveToElement(l2).click().perform();
-    }
 
-    private void hover(WebElement l1, Actions a) {
-        a.moveToElement(l1).build().perform();
-    }
 }

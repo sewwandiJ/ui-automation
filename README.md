@@ -18,3 +18,5 @@ Bellow steps are mainly focus on IntellijIdea based test execution.
   - Open build.gradle using the IDE and open the file as a project.This will execute necessary steps to attach the code to the IDE and prepare development environment.
   - Provide JDK ( Higher than java 7 ) when IDE requests it.
   - Internet connectivity is required as the dependencies are downloaded when the project is built.
+  - Correct webdriver ( firefox driver or chromedriver) for selenium should be added to src/test/resources/drivers
+  - A run configuration for IntellijIdea is required to be added in Edit configuration-->templates-->TestNG -->VM options : -ea -Dtestng.dtd.http=true
