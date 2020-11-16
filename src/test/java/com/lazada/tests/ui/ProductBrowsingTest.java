@@ -1,4 +1,4 @@
-package browsing;
+package com.lazada.tests.ui;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -7,19 +7,19 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import pages.ProductListPage;
-import pages.SiteNavigationMenu;
-import utils.TestUtils;
+import com.lazada.tests.ui.pages.ProductListPage;
+import com.lazada.tests.ui.pages.SiteNavigationMenu;
+import com.lazada.tests.ui.utils.TestUtils;
 
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.HashSet;
 import java.util.List;
 
-import static utils.Constants.CHROME_DRIVER;
-import static utils.Constants.URL;
+import static com.lazada.tests.ui.utils.Constants.CHROME_DRIVER;
+import static com.lazada.tests.ui.utils.Constants.URL;
 
-public class NavigationTest {
+public class ProductBrowsingTest {
 
     Object[][] excelData;
 
@@ -50,7 +50,7 @@ public class NavigationTest {
         siteNavigationMenu.hoverOverCategory(l1);
 
         WebElement l2 = siteNavigationMenu.getCategoryElementByText(level2);
-        if (level3 == null) {
+        if (level3 == "") {
             siteNavigationMenu.clickOnCategory(l2);
         } else {
             siteNavigationMenu.hoverOverCategory(l2);

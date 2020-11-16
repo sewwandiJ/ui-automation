@@ -1,4 +1,4 @@
-package utils;
+package com.lazada.tests.ui.utils;
 
 public class Constants {
     public static final String URL = "https://www.lazada.sg/#";

@@ -1,10 +1,10 @@
-package utils;
+package com.lazada.tests.ui.utils;
 
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static utils.Constants.TEST_DATA_FILE;
+import static com.lazada.tests.ui.utils.Constants.TEST_DATA_FILE;
 
 public class TestUtils {
 
