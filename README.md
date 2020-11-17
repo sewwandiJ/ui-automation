@@ -1,7 +1,7 @@
 # Selenium UI automation sample project
 The test suite contains selenium based automated test cases for https://www.lazada.sg ecommerce web portal. 
 It validates main menu items, navigation to product com.lazada.tests.ui.pages and product data. 
-Samples test cases have not been developed for all the scenarios. Any scenarios required can be added using excel data provider.
+Sample test cases have not been developed for all the scenarios. Any scenarios required can be added using excel data provider located at **src/test/resources/test-data/navigation.xlsx**.
 Following features are included in the project.
 
   - Selenium based UI navigation
@@ -19,7 +19,6 @@ Bellow steps are for IntellijIdea based test execution.
   - Provide JDK ( Higher than java 7 ) when IDE requests it.
   - Internet connectivity is required as the dependencies are downloaded when the project is built.
   - Correct webdriver (chromedriver version matching your browser version) for selenium should be added to src/test/resources/drivers
-  - A VM option is required to be added in Edit configuration-->templates-->TestNG -->VM options : -ea -Dtestng.dtd.http=true
+  - A VM option is required to be added in **Edit configuration --> Templates --> TestNG --> VM options** : `-ea -Dtestng.dtd.http=true`
   - Right click on testng.xml and create a run configuration for tesng.xml. Select 'In whole project' in the dialog box opened.
-  - Select above run configuration and run the tests.
-  
+  - Select above run configuration and run the tests.  
